@@ -1,0 +1,38 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block topblock %}
+{% if kitchen %}
+<div class="top-block-left">
+	<a href="{% url 'lists:detail' kitchen.id %}" title="View Kitchen">
+		<img src="{% static 'profile3.1.png' %}" />
+		<p>Kitchen</p>
+	</a>
+	<a href="{% url 'lists:members' kitchen.id %}" title="View Members">
+		<img src="{% static 'profile3.1.png' %}" />
+		<p>Members</p>
+	</a>
+</div>
+<div class="top-block-right">
+	<h1>{{ kitchen.title }}</h1>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if kitchen %}
+<div class="kitchen-members">
+	<h3>User Search</h3>
+
+	<form action="{% url 'lists:find_member' kitchen.id %}" method="post">
+		{% csrf_token %}
+		<label>search:</label>
+		<input type="text" name="user-search" />
+		<input type="submit" value="search" />
+	</form>
+
+	<h5>Search above to find users for your kitchen!</h5>
+
+</div>
+{% endif %}
+{% endblock %}

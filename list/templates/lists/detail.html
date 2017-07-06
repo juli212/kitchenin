@@ -1,0 +1,85 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}{{ kitchen.title }}{% endblock %}
+
+{% block topblock %}
+{% if kitchen %}
+<div class='top-block-left'>
+	<a href="#" class='add-item' title="Add Item">
+		<img src="{% static 'profile3.1.png' %}" />
+		<p>Item</p>
+	</a>
+	<a href="{% url 'lists:members' kitchen.id %}" class='member-page-link open-form-link' title="View Members">
+		<img src="{% static 'profile3.1.png' %}" />
+		<p>Members</p>
+	</a>
+</div>
+<div class="top-block-right">
+	<h1 class="kitchen-title">{{ kitchen.title }}</h1>
+</div>
+{% endif %}
+{% endblock %}
+
+<!-- <a href="{% url 'lists:leave_list' kitchen.id %}">Leave Kitchen</a> -->
+{% block content %}
+{% if kitchen %}
+
+<div class="kitchen-lists">
+	<div class='kitchen-list kitchen-list-1'>
+		<ul id="1-need">
+		<h6><a href="#">NEED</a></h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 1 %}
+					{% include "lists/kitchen_list.html" with status=1 %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="kitchen-list kitchen-list-2">
+		<ul id="2-pantry">
+		<h6><a href="#">PANTRY</a></h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 2 %}
+					{% include "lists/kitchen_list.html" with status=2 %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="kitchen-list kitchen-list-3">
+		<ul id="3-fridge">
+		<h6><a href="#">FRIDGE</a></h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 3 %}
+					{% include "lists/kitchen_list.html" with status=2 %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+
+
+<form action="{% url 'lists:add_item' kitchen.id %}" method="post" class='add-item-form display-none'>
+	<h4>New Item</h4>
+	{% csrf_token %}
+	<div>
+		<label>Item: </label>
+		<input type="text" name="item-name" />
+	</div>
+	<div>
+		<label>Status: </label>
+		<select type="select" name="item-status">
+			<option value='1'>need</option>
+			<option value='2'>pantry</option>
+			<option value='3'>fridge</option>
+		</select>
+	</div>
+	<div>
+		<label>Item Notes: </label>
+		<textarea name="item-notes" placeholder="Add qty, amt, instructions, etc. here!"></textarea>
+	</div>
+	<input type="submit" value="Add" class="hover-orange" />
+	<a href="#" class="cancel-link">cancel</a>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'home/style.css' %}" />
+	<script type="text/javascript" src="{% static 'js/jquery.js' %}" ></script>
+	<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.ui.touch-punch.min.js' %}"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>KITCHiN | {% block title %}Home{% endblock %}</title>
+</head>
+
+<body>
+		<div class="page-overlay display-none"></div>
+<div id="content">
+	{% block header %}
+		{% include "home/header.html" with user=user %}
+	{% endblock %}
+
+	<div id="main">
+		<div class="general-modal display-none">
+			<div class="modal-top-bar">
+				<h5>Name</h5>
+				<div class="modal-close-x hover-orange"><a href="#">x</a></div>
+			</div>
+			<div class="modal-main"></div>
+		</div>
+
+		<div class="top-block">
+			{% block topblock %}
+			{% endblock%}
+		</div>
+
+		{% block content %}
+		{% endblock %}
+	</div>
+</div>
+<div id="foot">
+	<footer><p>&copy; KitchenIn' 2017</p></footer>
+</div>
+
+</body>
+</html>

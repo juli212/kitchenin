@@ -1,0 +1,42 @@
+{% load static %}
+
+<h4>{{ item.name }}({{ item.display_status }})</h4>
+<h5>Notes:</h3>
+<p>{{ item.notes }}</p>
+<form action="#" method="post" class="update-note-form display-none">
+	{% csrf_token %}
+	<textarea placeholder="Update notes here..."></textarea>
+	<input type="submit" class="update-note-submit hover-orange" value="Submit" />
+	<a href="#" class="cancel-link">cancel</a>
+</form>
+
+<a href="#" class='edit-item-notes open-form-link'>Edit Notes</a>
+
+<div class="item-detail-by">
+	<p class="center-text">last updated by <a href="{% url 'profiles:detail' item.last_updated_by.id %}">{{ item.last_updated_by.username }}</a></p>
+</div>
+
+<div class="item-detail-move">
+{% if item.status != 1 %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="list" class="need-form hover-orange">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'list1.1.png' %}" value="1" alt="need" name="item-status" />
+	</form>
+	{% endif %}
+	{% if item.status != 2 %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="pantry" class="pantry-form hover-orange">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'pantry4.1.png' %}" value="2" alt="pantry" name="item-status" />
+	</form>
+	{% endif %}
+	{% if item.status != 3 %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="fridge" class="fridge-form hover-orange">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'fridge3.1.png' %}" value="3" alt="fridge" name="item-status" />
+	</form>
+	{% endif %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="remove" class="remove-form hover-orange">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'delete1.1.png' %}" value="4" alt="fridge" name="item-status" />
+	</form>
+</div>

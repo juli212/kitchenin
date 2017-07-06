@@ -1,0 +1,27 @@
+{% load static %}
+<li>
+	<a href="{% url 'items:detail' item.id %}" class='list-item'>{{ item.name }}</a>
+	{% if item.status != 1 %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="list">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'list_icon.png' %}" value="1" alt="need" name="item-status" />
+	</form>
+	{% endif %}
+	{% if item.status != 2 %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="pantry">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'pantry_icon.jpg' %}" value="2" alt="pantry" name="item-status" />
+	</form>
+	{% endif %}
+	{% if item.status != 3 %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="fridge">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'fridge_icon.png' %}" value="3" alt="fridge" name="item-status" />
+	</form>
+	{% endif %}
+	<form action="{% url 'items:move' item.id %}" method="post" title="remove">
+		{% csrf_token %}
+		<input class="move-item-icon" type="image" src="{% static 'delete_icon.png' %}" value="4" alt="fridge" name="item-status" />
+	</form>
+	<p>{{ item.notes }}</p>
+</li>

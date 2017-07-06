@@ -1,0 +1,28 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<p>Hello. This is the homepage!</p>
+
+
+{% if user %}
+	<p>you are logged in!</p>
+{% else %}
+
+<a href="#" class='register-link open-form-link'>Register</a>
+	<form action="{% url 'home:register' %}" method='post' class="">
+	<h3>Register</h3>
+		{% csrf_token %}
+		{{ registration_form.as_p }}
+		<button type="submit">Register</button>
+	</form>
+
+<a href="#" class='login-link open-form-link'>Login</a>
+	<form action="{% url 'home:login' %}" method="post" class="">
+	<h3>Login</h3>
+		{% csrf_token %}
+		{{ login_form.as_p }}
+		<button type="submit">Login</button>
+	</form>
+{% endif %}
+
+{% endblock %}
