@@ -13,11 +13,12 @@ def index(request):
     user = request.user
   else:
     user = None
-  registration_form = UserRegistrationForm()
-  login_form = UserLoginForm()
+    registration_form = UserRegistrationForm()
+    login_form = UserLoginForm()
   return render(request, 'home/index.html', {'registration_form': registration_form, 'login_form': login_form, 'user': user })
 
 def register(request):
+  registration_form = UserRegistrationForm()
   if request.method == 'POST':
     form = UserRegistrationForm(request.POST)
     if form.is_valid():
@@ -29,12 +30,15 @@ def register(request):
       user = authenticate(username=user.username, password=raw_password)
       user_login(request, user)
       return HttpResponseRedirect(reverse('profiles:detail', args=(user.id,)))
+    else:
+      return render(request, 'home/register.html', {'registration_form': form })
   else:
-    # pdb.set_trace()
-    form = UserRegistrationForm()
-    return render(request, 'home/index.html', { 'form': form })
+    return render(request, 'home/register.html', { 'registration_form': registration_form })
+
 
 def login(request):
+  # registration_form = UserRegistrationForm()
+  login_form = UserLoginForm()
   if request.method == "POST":
     form = UserLoginForm(request.POST)
     if form.is_valid():
@@ -46,8 +50,11 @@ def login(request):
         return HttpResponseRedirect(reverse('profiles:detail', args=(user.id,)))
       else:
         return HttpResponse("Login failed")
+    else:
+      return render(request, 'home/login.html', { 'login_form': form })
   else:
-    return HttpResponseRedirect(reverse('home:index'))
+    return render(request, 'home/login.html', {'login_form': login_form })
+    # return HttpResponseRedirect(reverse('home:index'))
 
 def logout(request):
   user_logout(request)

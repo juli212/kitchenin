@@ -6,7 +6,7 @@
 			<a href="{% url 'home:index' %}">
 			<img src="{% static 'home6.1.png' %}" /><p>Home</p></a>
 		</li>
-		{% if user %}
+		{% if user.is_authenticated %}
 		<li class="nav-link">
 			<a href="{% url 'profiles:detail' user.profile.id %}">
 				<img src="{% static 'profile3.1.png' %}" /><p>Profile</p></a>
@@ -16,7 +16,7 @@
 			<a href="{% url 'lists:index' %}">
 				<img src="{% static 'kitchen5.1.png' %}" /><p>Kitchens</p></a>
 		</li>
-		{% if user %}
+		{% if user.is_authenticated %}
 		<li class="nav-link">
 			<a href="{% url 'home:logout' %}">
 				<img src="{% static 'logout2.1.png' %}" /><p>Logout</p></a>

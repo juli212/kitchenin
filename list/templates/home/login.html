@@ -1,0 +1,23 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<p>Login Below</p>
+
+{% if user.is_authenticated %}
+	<p>you are logged in!</p>
+	<a href="{% url 'profiles:detail' user.profile.id %}" >My Profile!</a>
+{% else %}
+<a href="{% url 'home:register' %}" class='Register-link open-form-link'>Register</a>
+
+<form action="{% url 'home:login' %}" method="post" class="">
+<h3>Login</h3>
+	{% csrf_token %}
+	{{ login_form.as_p }}
+	<button type="submit">Login</button>
+</form>
+
+{% endif %}
+
+{% endblock %}
