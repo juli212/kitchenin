@@ -30,6 +30,7 @@ def register(request):
       user_login(request, user)
       return HttpResponseRedirect(reverse('profiles:detail', args=(user.id,)))
   else:
+    # pdb.set_trace()
     form = UserRegistrationForm()
     return render(request, 'home/index.html', { 'form': form })
 
@@ -40,7 +41,6 @@ def login(request):
       username = form.cleaned_data.get('username')
       password = form.cleaned_data.get('password')
       user = authenticate(username=username, password=password)
-      pdb.set_trace()
       if user is not None:
         user_login(request, user)
         return HttpResponseRedirect(reverse('profiles:detail', args=(user.id,)))
