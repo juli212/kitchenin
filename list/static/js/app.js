@@ -3,11 +3,19 @@ $(document).ready(function(){
 
 	$('.kitchen-lists').on('click', 'li p', function(){
 		var $item = $(this).closest('.list-item')
+		var $dropdown = $item.find('.list-forms')
+		var $itemBox = $item.closest('.kitchen-list')
 		if ($item.hasClass('visible-options')){
 			$('.visible-options').removeClass('visible-options')
+			$itemBox.removeClass('high-z')
 		} else {
-			$('.visible-options').removeClass('visible-options')	
+			var t = $item.offset().top + $item.height()/2
+			var l = $item.offset().left + ($item.width() - $dropdown.width()/2) 
+			$('.visible-options').removeClass('visible-options')
+			$('.kitchen-list.high-z').removeClass('.high-z')
 			$item.toggleClass('visible-options')
+			$dropdown.offset({top: t, left: l})
+			$itemBox.addClass('high-z')
 		}
 	})
 

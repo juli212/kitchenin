@@ -87,6 +87,8 @@ h1 {
 	text-align: center;
 }
 
+
+
 /****** General Modal ******/
 .general-modal {
 	margin: 0 auto;
@@ -457,6 +459,8 @@ li.list-item form input {
 
 .kitchen-lists li.list-item.visible-options .list-forms {
 	display: block;
+	position: fixed;
+	right: auto;
 }
 
 .list-forms {
@@ -717,4 +721,10 @@ li.list-item form input {
 
 .kitchen-members ul li form input {
 	margin: 0;
+}
+
+
+/***** Temp Override Styles ******/
+.high-z {
+	z-index: 1000;
 }
