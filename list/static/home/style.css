@@ -235,6 +235,7 @@ form .cancel-link {
 	height: auto;
 	background-color: #D3D3D3;
 	padding: 0;
+	padding-top: 3px;
 	margin: 0;
 	position: relative;
 	justify-content: space-around;
@@ -245,9 +246,6 @@ form .cancel-link {
 	position: relative;
 	padding: 0 0 3px;
 	margin: 0;
-}
-
-@media (min-width: 600px) {
 }
 
 .header-bar-menu {
@@ -593,6 +591,7 @@ li.list-item form input {
 	float: left;
 }
 
+
 .top-block-right {
 	display: table-cell;
 	vertical-align: middle;
@@ -601,6 +600,7 @@ li.list-item form input {
 	margin: 0;
 	width: 80%;
 	min-width: 212px;
+	padding-right: 3px;
 	/*float: left;*/
 }
 
@@ -628,11 +628,16 @@ li.list-item form input {
 }
 
 .top-block-left a img {
-	width: 20px;
-	height: 20px;
-	margin: 6px 0;
+	width: 25px;
+	height: 25px;
+	margin: 5px 0 2px;
 	background-color: orange;
 }
+
+.top-block-left a:hover img {
+	background-color: black;
+}
+
 .top-block-left p {
 	color: white;
 	font-weight: bold;
@@ -640,6 +645,9 @@ li.list-item form input {
 	font-size: 10px;
 }
 
+.top-block-left a:hover p {
+	color: orange;
+}
 
 .add-item-form {
 	max-width: 400px;

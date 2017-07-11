@@ -13,9 +13,7 @@ def index(request):
     user = request.user
   else:
     user = None
-    registration_form = UserRegistrationForm()
-    login_form = UserLoginForm()
-  return render(request, 'home/index.html', {'registration_form': registration_form, 'login_form': login_form, 'user': user })
+  return render(request, 'home/index.html', { 'user': user })
 
 def register(request):
   registration_form = UserRegistrationForm()
@@ -37,7 +35,6 @@ def register(request):
 
 
 def login(request):
-  # registration_form = UserRegistrationForm()
   login_form = UserLoginForm()
   if request.method == "POST":
     form = UserLoginForm(request.POST)
@@ -49,12 +46,11 @@ def login(request):
         user_login(request, user)
         return HttpResponseRedirect(reverse('profiles:detail', args=(user.id,)))
       else:
-        return HttpResponse("Login failed")
+        return render(request, 'home/login.html', { 'login_form': form })
     else:
       return render(request, 'home/login.html', { 'login_form': form })
   else:
     return render(request, 'home/login.html', {'login_form': login_form })
-    # return HttpResponseRedirect(reverse('home:index'))
 
 def logout(request):
   user_logout(request)
