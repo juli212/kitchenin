@@ -5,28 +5,28 @@
 	{% if item.status != 1 %}
 	<form action="{% url 'items:move' item.id %}" method="post" title="list" class="need-form ">
 		{% csrf_token %}
-		<input class="move-item-icon" type="image" src="{% static 'list1.1.png' %}" value="1" alt="need" name="item-status" />
+		<input class="move-item-icon" type="image" src="{% static 'listBlue.png' %}" value="1" alt="need" name="item-status" />
 	</form>
 	{% endif %}
 	{% if item.status != 2 %}
 	<form action="{% url 'items:move' item.id %}" method="post" title="pantry" class="pantry-form ">
 		{% csrf_token %}
-		<input class="move-item-icon" type="image" src="{% static 'pantry4.1.png' %}" value="2" alt="pantry" name="item-status" />
+		<input class="move-item-icon" type="image" src="{% static 'pantryBlue.png' %}" value="2" alt="pantry" name="item-status" />
 	</form>
 	{% endif %}
 	{% if item.status != 3 %}
 	<form action="{% url 'items:move' item.id %}" method="post" title="fridge" class="fridge-form ">
 		{% csrf_token %}
-		<input class="move-item-icon" type="image" src="{% static 'fridge3.1.png' %}" value="3" alt="fridge" name="item-status" />
+		<input class="move-item-icon" type="image" src="{% static 'fridgeBlue.png' %}" value="3" alt="fridge" name="item-status" />
 	</form>
 	{% endif %}
 	<form action="{% url 'items:detail' item.id %}" method="get" title="edit" class="edit-form ">
 		{% csrf_token %}
-		<input class="edit-item-icon" type="image" src="{% static 'edit1.1.png' %}" alt="edit" />
+		<input class="edit-item-icon" type="image" src="{% static 'editBlue.png' %}" alt="edit" />
 	</form>
 	<form action="{% url 'items:move' item.id %}" method="post" title="remove" class="remove-form ">
 		{% csrf_token %}
-		<input class="move-item-icon" type="image" src="{% static 'delete1.1.png' %}" value="4" alt="fridge" name="item-status" />
+		<input class="move-item-icon" type="image" src="{% static 'deleteBlue.png' %}" value="4" alt="fridge" name="item-status" />
 	</form>
 	</div>
 </li>

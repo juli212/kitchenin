@@ -1,0 +1,28 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block topblock %}
+<div class="top-block-left">
+{% if user.is_authenticated %}
+	<a href="{% url 'profiles:detail' user.profile.id %}" title="Profile">
+		<img src="{% static 'viewUserGreen.png' %}" />
+		<p>Profile</p>
+	</a>
+{% endif %}
+</div>
+
+<div class="top-block-right">
+	<h1>About Us</h1>
+</div>
+
+{% endblock %}
+
+{% block content %}
+	<div class='page'>
+	<h3>Mission</h3>
+	<p>We are here to help organize your kitchen and make grocery shopping in all situations!</p>
+	<p></p>
+	</div>
+{% endblock %}

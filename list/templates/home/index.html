@@ -1,28 +1,46 @@
 {% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block topblock %}
+{% if user.is_authenticated %}
+<div class="top-block-left">
+	<a href="{% url 'profiles:detail' user.profile.id %}" title="Profile">
+		<img src="{% static 'viewUserGreen.png' %}" />
+		<p>Profile</p>
+	</a>
+	<a href="#" class="open-kitchen-form open-form-link" title="Add Kitchen">
+		<img src="{% static 'AddKitchenGreen.png' %}" />
+		<p>Kitchen</p>
+	</a>
+
+</div>
+<div class="top-block-right">
+	<h1>{{ user.username }}</h1>
+</div>
+
+{% endif %}
+{% endblock %}
 
 {% block content %}
-<p>Hello. This is the homepage!</p>
+	<div class='page'>
 
+	{% if user.is_authenticated %}
+		<p>you are logged in as {{user.username}}</p>
+		<a href="{% url 'profiles:detail' user.profile.id %}" >My Profile!</a>
+	{% else %}
+		<a href="{% url 'home:register' %}" class='register-link button-link'>Register</a>
+		<a href="{% url 'home:login' %}" class='login-link button-link'>Login</a>
+	{% endif %}
 
-{% if user %}
-	<p>you are logged in!</p>
-{% else %}
-
-<a href="#" class='register-link open-form-link'>Register</a>
-	<form action="{% url 'home:register' %}" method='post' class="">
-	<h3>Register</h3>
-		{% csrf_token %}
-		{{ registration_form.as_p }}
-		<button type="submit">Register</button>
-	</form>
-
-<a href="#" class='login-link open-form-link'>Login</a>
-	<form action="{% url 'home:login' %}" method="post" class="">
-	<h3>Login</h3>
-		{% csrf_token %}
-		{{ login_form.as_p }}
-		<button type="submit">Login</button>
-	</form>
-{% endif %}
-
+	{% if kitchens %}
+		<ul class="blocklist">
+			<h3>Public Kitchens</h3>
+			{% for kitchen in kitchens.all %}
+				<li><a class="text" href="{% url 'lists:detail' kitchen.id %}">{{ kitchen.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	</div>
 {% endblock %}

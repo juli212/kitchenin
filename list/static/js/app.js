@@ -1,18 +1,55 @@
 $(document).ready(function(){
 	dragDrop()
 
-	$('.kitchen-lists').on('click', 'li p', function(){
+	$(window).on('scroll', function() {
+		$('.list-item').removeClass('visible-options');
+	})
+
+	$('a.filter-link').on('click', function(e) {
+		e.preventDefault()
+		$link = $(this)
+		if ($link.hasClass('active')) {
+			$('li.deleted').addClass('display-none');
+		} else if ($link.hasClass('all')) {
+			$('li.deleted').removeClass('display-none');
+		}
+	})
+
+	$('.edit-user ul').on('click', 'li a', function(e) {
+		e.preventDefault()
+		var hash = this.hash
+		$('.selected').removeClass('selected')
+		$(this.closest('li')).addClass('selected');
+		$(hash).addClass('selected');
+	})
+
+	$('.kitchen-lists').on('click', 'li.list-item p', function(){
 		var $item = $(this).closest('.list-item')
+		var $dropdown = $item.find('.list-forms')
+		var $itemBox = $item.closest('.kitchen-list')
 		if ($item.hasClass('visible-options')){
 			$('.visible-options').removeClass('visible-options')
+			$itemBox.removeClass('high-z')
 		} else {
-			$('.visible-options').removeClass('visible-options')	
+			var t = $item.offset().top + $item.height() - 7
+			var l = $item.offset().left + ($item.width()/2 - $dropdown.width()/2)
+			var fh = $('.list-forms').height()
+			// make sure dropdown is not cut off by bottom/side of page!
+			if ($(window).height() - t < fh) {
+				t -= ( fh + $item.height() )
+				t += 10
+			}
+			$('.visible-options').removeClass('visible-options')
+			$('.kitchen-list.high-z').removeClass('high-z')
 			$item.toggleClass('visible-options')
+			$dropdown.offset({top: t, left: l})
+			$itemBox.addClass('high-z')
 		}
 	})
 
 	$('.kitchen-lists').on('click', 'li .edit-form', function(){
 		event.preventDefault()
+			$('.high-z').removeClass('high-z')
 			var $modalBox = $('.general-modal')
 			var title = $('.kitchen-title').text()
 		$.ajax({
@@ -39,6 +76,21 @@ $(document).ready(function(){
 				$modalBox.find('.modal-main').html(response)
 				$modalBox.removeClass('display-none')
 			}
+		})
+	})
+
+	$('body').on('submit', '.update-note-form', function(){
+		event.preventDefault()
+		$.ajax({
+			url: this.action,
+			method: this.method,
+			data: $(this).serialize(),
+			success: function(response){
+				$('.modal-main').html(response)
+			},
+			error: function(response){
+				console.log('failed')
+			} 
 		})
 	})
 
@@ -86,23 +138,19 @@ $(document).ready(function(){
 		$modalBox.removeClass('display-none')
 	})
 
-	$('.add-item-form').on('click', '.cancel-link', function(){
-		var hideForm = $(this).closest('form')
-		var showButton = $('.add-item')
-		formToggle(hideForm, showButton)
-	})
-
 	$('.general-modal').on('click', '.cancel-link', function(){
-		var hideForm = $(this).closest('form')
-		var showButton = $('.edit-item-notes')
-		formToggle(hideForm, showButton)
-	})
-
-
-	$('.new-kitchen-form').on('click', '.cancel-link', function(){
-		var hideForm = $(this).closest('form')
-		var showButton = $('.open-kitchen-form')
-		formToggle(hideForm, showButton)
+		if ( $(this).closest('form').hasClass('update-note-form') ) {
+			var hideForm = $(this).closest('form')
+			var showButton = $('.edit-item-notes')
+			formToggle(hideForm, showButton)
+		} else {
+			$modal = $('.general-modal')
+			$modal.attr('class', '.general-modal')
+			$modal.addClass('display-none')
+			$modal.find('.modal-main').html('')
+			$modal.find('h5').text('')
+			$('.page-overlay').addClass('display-none')
+		}
 	})
 
 	$('.kitchen-lists').on('click', 'h6 a', function(){
@@ -121,6 +169,7 @@ $(document).ready(function(){
 		$target = $(e.target)
 		if (!$target.parent().hasClass('list-item')){
 			$('.visible-options').removeClass('visible-options')
+			$('.kitchen-list.high-z').removeClass('high-z')
 		}
 	})
 
@@ -140,12 +189,14 @@ $(document).ready(function(){
 			start: function(){
 				var $li = $(this)
 				var $box = $('#drag-box')
+				$('.kitchen-list.high-z').removeClass('high-z')
 				$('.visible-options').removeClass('visible-options')
 				$li.data("origPosition", $li.position())
 				$('.kitchen-list').css('overflow', 'hidden')
 				$li.css('opacity', '0.4')
 			},
 			drag: function(){
+				// debugger;
 				var $list = $(this).closest('.kitchen-list')
 				$($list[0]).droppable({disabled: true})
 			},
@@ -172,15 +223,12 @@ $(document).ready(function(){
 						ui.draggable.animate(ui.draggable.data().origPosition, "slow")
 					},
 					success: function(response){
-						console.log('win');
 						$(ui.draggable[0]).remove()
 						$(droppedAt).append(response)
 						$('.kitchen-list').droppable("option", "disabled", false)
 						$('.kitchen-list').css('overflow-y', 'auto')
 						dragDrop()
 					}
-				// }).done(function(){
-				// 	debugger;
 				})
 			}
 		})

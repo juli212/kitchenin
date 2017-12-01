@@ -1,0 +1,82 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}{{ profile.user.username }}{% endblock %}
+
+{% block topblock %}
+{% if profile %}
+<div class="top-block-left">
+	<a href="{% url 'profiles:detail' profile.id %}" class="edit-profile" title="Profile">
+		<img src="{% static 'viewUserGreen.png' %}" />
+		<p>Profile</p>
+	</a>
+</div>
+<div class="top-block-right">
+	<h1><span>Edit</span> {{ profile.user.username }}</h1>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="edit-user page">
+	{% if user.is_authenticated %}
+		<ul class="blocklist edit-list">
+			<li><a href="#name">Update Name</a></li>
+			<li><a href="#bio">Edit Bio</a></li>
+			<li><a href="#email">Change Email</a></li>
+			<li><a href="#password">Update Password</a></li>
+		</ul>
+
+	<div class="edit-main">
+		<div class="current-info selected">
+			<p>Select Item to update or return to your <a href="{% url 'profiles:detail' profile.id %}" >profile</a>.</p>
+		</div>
+
+		<div class="current-info" id="bio">
+			<form action="{% url 'profiles:detail' profile.id %}" method="post" class="edit-form user-form">
+				<h4>Edit Bio</h4>
+				{% csrf_token %}
+				{{ bio_form.as_p }}
+				<input type="submit" value="Update" />
+			</form>
+		</div>
+
+		<div class="current-info" id="name">
+			<form action="{% url 'profiles:detail' profile.id %}" method="post" class="edit-form user-form">
+				<h4>Update Name</h4>
+				{% csrf_token %}
+				{{ name_form.as_p }}
+				<input type="submit" value="Update" />
+			</form>
+		</div>
+
+		<div class="current-info" id="password">
+			<form action="{% url 'profiles:detail' profile.id %}" method="post" class="edit-form user-form" >
+				<h4>Update Password</h4>
+				{% csrf_token %}
+				{{ password_form.as_p }}
+				<input type="submit" value="Update" />
+			</form>
+		</div>
+		
+		<div class="current-info" id="email">
+			<form action="{% url 'profiles:detail' profile.id %}" method="post" class="edit-form user-form" >
+				<h4>Update Email</h4>
+				{{ email_form.as_p }}
+				<input type="submit" value="Update" />
+			</form>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+<form action="{% url 'lists:create' %}" method="post" class="new-kitchen-form display-none user-form">
+	{% csrf_token %}
+	{{ kitchen_form.as_p }}
+	<input type="submit" value="create" />
+	<a href="#" class="cancel-link">cancel</a>
+</form>
+
+{% endblock %}
