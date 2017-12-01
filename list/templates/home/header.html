@@ -4,12 +4,12 @@
 	<ul class='header-bar-menu'>
 		<li class="nav-link">
 			<a href="{% url 'home:index' %}">
-			<img src="{% static 'home.png' %}" /><p>Home</p></a>
+			<img src="{% static 'homeInverted.png' %}" /><p>Home</p></a>
 		</li>
 		{% if user.is_authenticated %}
 		<li class="nav-link">
 			<a href="{% url 'profiles:detail' user.profile.id %}">
-				<img src="{% static 'kitchen.png' %}" /><p>Kitchens</p></a>
+				<img src="{% static 'kitchenInverted.png' %}" /><p>Kitchens</p></a>
 		</li>
 		{% else %}
 		<li class="nav-link">
@@ -24,7 +24,7 @@
 		{% if user.is_authenticated %}
 		<li class="nav-link">
 			<a href="{% url 'home:logout' %}">
-				<img src="{% static 'logout.png' %}" /><p>Logout</p></a>
+				<img src="{% static 'logoutInverted.png' %}" /><p>Logout</p></a>
 		</li>
 		{% endif %}
 	</ul>
