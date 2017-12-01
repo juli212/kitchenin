@@ -1,0 +1,44 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}{{ kitchen.title }}{% endblock %}
+
+{% block topblock %}
+{% if kitchen %}
+<div class="top-block-left">
+	<a href="{% url 'lists:detail' kitchen.id %}" class="" title="Kitchen">
+		<img src="{% static 'viewKitchenGreen.png' %}" />
+		<p>Kitchen</p>
+	</a>
+	<a href="{% url 'profiles:detail' user.profile.id %}" class="" title="Profile">
+		<img src="{% static 'viewUserGreen.png' %}" />
+		<p>Profile</p>
+	</a>
+</div>
+<div class="top-block-right">
+	<h1><span>Edit</span> {{ kitchen.title }}</h1>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="page edit">
+	{% if user.is_authenticated %}
+		<form action="{% url 'lists:detail' kitchen.id %}" method="post" class="user-form" >
+			<h3>Edit Description</h3>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Update" />
+		</form>
+		<div class='delete-icon-link'>
+			<form class="icon-box .delete-kitchen" action="{% url 'lists:destroy' kitchen.id %}" method="post" title="Delete">
+				{% csrf_token %}
+				<input class="icon" type="image" src="{% static 'deleteBlue.png' %}" />
+			</form>
+		</div>
+	{% endif %}
+</div>
+
+{% endblock %}

@@ -1,19 +1,46 @@
 {% extends 'home/base.html' %}
+{% load static %}
 
-{% block content %}
-<p>Hello. This is the homepage!</p>
+{% block title %}Home{% endblock %}
 
-
+{% block topblock %}
 {% if user.is_authenticated %}
-	<p>you are logged in!</p>
-	<a href="{% url 'profiles:detail' user.profile.id %}" >My Profile!</a>
+<div class="top-block-left">
+	<a href="{% url 'profiles:detail' user.profile.id %}" title="Profile">
+		<img src="{% static 'viewUserGreen.png' %}" />
+		<p>Profile</p>
+	</a>
+	<a href="#" class="open-kitchen-form open-form-link" title="Add Kitchen">
+		<img src="{% static 'AddKitchenGreen.png' %}" />
+		<p>Kitchen</p>
+	</a>
 
-{% else %}
-
-<a href="{% url 'home:register' %}" class='register-link open-form-link'>Register</a>
-
-<a href="{% url 'home:login' %}" class='login-link open-form-link'>Login</a>
+</div>
+<div class="top-block-right">
+	<h1>{{ user.username }}</h1>
+</div>
 
 {% endif %}
+{% endblock %}
 
+{% block content %}
+	<div class='page'>
+
+	{% if user.is_authenticated %}
+		<p>you are logged in as {{user.username}}</p>
+		<a href="{% url 'profiles:detail' user.profile.id %}" >My Profile!</a>
+	{% else %}
+		<a href="{% url 'home:register' %}" class='register-link button-link'>Register</a>
+		<a href="{% url 'home:login' %}" class='login-link button-link'>Login</a>
+	{% endif %}
+
+	{% if kitchens %}
+		<ul class="blocklist">
+			<h3>Public Kitchens</h3>
+			{% for kitchen in kitchens.all %}
+				<li><a class="text" href="{% url 'lists:detail' kitchen.id %}">{{ kitchen.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+	</div>
 {% endblock %}

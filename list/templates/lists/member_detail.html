@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="kitchen-lists">
+	<div class='kitchen-list kitchen-list-1'>
+		<ul id="1-need">
+		<h6><a href="#">NEED</a></h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 1 %}
+					{% include "lists/kitchen_list.html" with status=1 %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="kitchen-list kitchen-list-2">
+		<ul id="2-pantry">
+		<h6><a href="#">PANTRY</a></h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 2 %}
+					{% include "lists/kitchen_list.html" with status=2 %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="kitchen-list kitchen-list-3">
+		<ul id="3-fridge">
+		<h6><a href="#">FRIDGE</a></h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 3 %}
+					{% include "lists/kitchen_list.html" with status=3 %}
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>

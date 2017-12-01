@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="kitchen-lists">
+	<div class='public-list'>
+		<ul>
+		<h6>NEED</h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 1 %}
+					<li class='public-item'><p>{{item.name}}</p></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="public-list">
+		<ul>
+		<h6>PANTRY</h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 2 %}
+					<li class='public-item'><p>{{item.name}}</p></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="public-list">
+		<ul>
+		<h6>FRIDGE</h6>
+			{% for item in kitchen.items.all %}
+				{% if item.status == 3 %}
+					<li class='public-item'><p>{{item.name}}</p></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+</div>

@@ -4,47 +4,130 @@
 {% block title %}{{ profile.user.username }}{% endblock %}
 
 {% block topblock %}
-{% if profile %}
 <div class="top-block-left">
-	<a href="#" class="edit-profile" title="Edit Profile">
-		<img src="{% static 'profile3.1.png' %}" />
+{% if kitchen_form %}
+	<a href="{% url 'profiles:edit' profile.id %}" class="edit-profile" title="Edit Profile">
+		<img src="{% static 'editProfileGreen.png' %}" />
 		<p>Edit</p>
 	</a>
-	<a href="#" class="open-kitchen-form open-form-link" title="Add Kitchen">
-		<img src="{% static 'profile3.1.png' %}" />
+	<a href="#" class="open-kitchen-form" title="Add Kitchen">
+		<img src="{% static 'AddKitchenGreen.png' %}" />
 		<p>Kitchen</p>
 	</a>
 </div>
 <div class="top-block-right">
 	<h1>{{ profile.user.username }}</h1>
+{% elif user %}
+	<a href="{% url 'profiles:detail' user.profile.id %}" title="My Profile" >
+		<img src="{% static 'viewUserGreen.png' %}" />
+		<p>Profile</p>
+	</a>
 </div>
-
+<div class="top-block-right">
+	<h1><span>welcome to</span>{{ profile.user.username }}<span>'s profile</span></h1>
 {% endif %}
+</div>
 {% endblock %}
 
 {% block content %}
-<p><{{ profile.birth_date}}/p>
+<div class="page">
 
-<div class="kitchen-members">
-<h3>Kitchens</h3>
-	<ul>
-		{% for list in profile.user.lists.all %}
-			<li><a href="{% url 'lists:detail' list.id %}">{{ list.title }}</a></li>
-		{% endfor %}
-	</ul>
+<p>{{ profile.bio }}</p>
+<ul class="blocklist">
+
+{% if user != profile.user %}
+	<h3>Kitchens</h3>
+	{% for list in profile.user.lists.all %}
+		<li>
+		{% if list.private == False or user in list.members.all %}
+			<a class="text" href="{% url 'lists:detail' list.id %}">{{ list.title }}</a>
+			<div class="icon-links">
+			{% if list.private == True %}
+				<span class='icon-box' title='Private'><p class='icon'>P</p></span>
+			{% endif %}
+			<!-- Is profile person creator or member? -->
+			{% if profile.user == list.creator %}
+				<span class='icon-box'  title='Member'><img class='icon' src="{% static 'viewUserGreen.png' %}" /></span>
+			{% else %}
+				<span class='icon-box'  title='Member'><img class='icon' src="{% static 'viewUserBlue.png' %}" /></span>
+			{% endif %}
+			</div>
+			<!-- Indicate if I am member or creator -->
+			{% if user == list.creator %}
+				<span class='owner-icon' title='Created by you'><img class='icon' src="{% static 'viewUserGreen.png' %}" /></span>
+			{% elif user in list.members.all %}
+				<span class='owner-icon' title='You are a member'><img class='icon' src="{% static 'viewUserBlue.png' %}" /></span>
+			{% endif %}
+		{% else %}
+			<p class="text" >{{ list.title }}</p>
+			<div class="icon-links">
+				<span class='icon-box' title='Private'><p class='icon'>P</p></span>
+				{% if profile.user.id == list.creator.id %}
+					<span class="icon-box" title="Owner"><img class='icon' src="{% static 'viewUserGreen.png' %}" /></span>
+				{% else %}
+					<span class="icon-box" title="Member"><img class='icon' src="{% static 'viewUserBlue.png' %}" /></span>
+				{% endif %}
+			</div>
+		{% endif %}
+		</li>
+	{% endfor %}
+
+{% elif profile %}
+		
+	<h3>Your Kitchens</h3>
+	<a class="filter-link all" href="#view-all">View All</a>
+	<a class="filter-link active" href="#view-active">Active</a>
+
+	{% for list in profile.user.lists.all %}
+		{% if list.deleted == True %}
+		<li class="deleted">
+			<p class="text">{{ list.title }}</p>
+			<div class='icon-links'>
+				<span class='icon-box'><p class=''>Deleted</p></span>
+			</div>
+			{% if profile.user == list.creator %}
+				<span class="owner-icon" title="Owner"><img class='icon' src="{% static 'viewUserGreen.png' %}" /></span>
+			{% else %}
+				<span class="owner-icon" title="Member"><img class='icon' src="{% static 'viewUserBlue.png' %}" /></span>
+			{% endif %}
+		</li>
+		{% else %}
+		<li>
+			<a class="text" href="{% url 'lists:detail' list.id %}">{{ list.title }}</a>
+			<div class="icon-links">
+				{% if profile.user == list.creator %}
+					<form class="icon-box click delete-kitchen" action="{% url 'lists:destroy' list.id %}" method="post" title="Delete">
+					{% csrf_token %}
+						<input class="icon" type="image" src="{% static 'deleteBlue.png' %}" />
+					</form>
+					<a class="icon-box click" title="Edit" href="{% url 'lists:edit' list.id %}" ><img class="icon" src="{% static 'editBlue.png' %}" /></a>
+				{% else %}
+					<form class="icon-box click" action="{% url 'lists:leave_list' list.id %}" method="post" title="Leave">
+						{% csrf_token %}
+						<input class="icon" type="image" src="{% static 'leaveBlue.png' %}" />
+					</form>
+				{% endif %}
+			</div>
+			{% if profile.user == list.creator %}
+				<span class="owner-icon" title="Owner"><img class='icon' src="{% static 'viewUserGreen.png' %}" /></span>
+			{% else %}
+				<span class="owner-icon" title="Member"><img class='icon' src="{% static 'viewUserBlue.png' %}" /></span>
+			{% endif %}
+		</li>
+		{% endif %}
+	{% endfor %}
+{% endif %}
+
+</ul>
 </div>
 
-<form action="{% url 'lists:create' %}" method="post" class="new-kitchen-form display-none">
+{% if profile.user == user %}
+<form action="{% url 'lists:create' %}" method="post" class="new-kitchen-form display-none user-form">
 	{% csrf_token %}
-	<div>
-		<label>Name:</label>
-		<input type="text" name="list-title" placeholder="Name" />
-	</div>
-	<div>
-		<label>Description:</label>
-		<textarea name="list-description" placeholder="Description"></textarea>
-	</div>
+	{{ kitchen_form.as_p }}
 	<input type="submit" value="create" />
 	<a href="#" class="cancel-link">cancel</a>
 </form>
+{% endif %}
+
 {% endblock %}

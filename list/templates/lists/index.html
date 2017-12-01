@@ -5,7 +5,7 @@
 
 <div class="top-block-left">
 	<a href="#" class="open-kitchen-form open-form-link" title="Add Kitchen">
-		<img src="{% static 'profile3.1.png' %}" />
+		<img src="{% static 'AddKitchen.png' %}" />
 		<p>Kitchen</p>
 	</a>
 </div>
@@ -16,18 +16,18 @@
 {% endblock %}
 
 {% block content %}
-{% if kitchens %}
-<div class="kitchen-members">
+<div class="kitchen-members page">
 <h3>Your Kitchens</h3>
 
-<ul>
+<ul class="user-kitchen-list">
+	{% if kitchens %}
 	{% for kitchen in kitchens.all %}
 		<li><a href="{% url 'lists:detail' kitchen.id %}">{{ kitchen.title }}</a>
 		</li>
 	{% endfor %}
+	{% endif %}
 </ul>
 </div>
-{% endif %}
 
 <form action="{% url 'lists:create' %}" method="post" class="new-kitchen-form display-none">
 	{% csrf_token %}

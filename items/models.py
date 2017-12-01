@@ -16,7 +16,7 @@ ITEM_STATUS = (
 class Item(models.Model):
 	added_by = models.ForeignKey("auth.User", related_name='added_by', default=1)
 	name = models.CharField(max_length=30)
-	notes = models.TextField(blank=True, max_length=200)
+	notes = models.TextField(blank=True, max_length=100)
 	created_date = models.DateTimeField(default=timezone.now)
 	kitchen = models.ForeignKey(List, related_name='items')
 

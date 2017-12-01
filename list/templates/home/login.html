@@ -3,7 +3,7 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<p>Login Below</p>
+<div class="page">
 
 {% if user.is_authenticated %}
 	<p>you are logged in!</p>
@@ -11,13 +11,14 @@
 {% else %}
 <a href="{% url 'home:register' %}" class='Register-link open-form-link'>Register</a>
 
-<form action="{% url 'home:login' %}" method="post" class="">
+<form action="{% url 'home:login' %}" method="post" class="user-form">
 <h3>Login</h3>
 	{% csrf_token %}
 	{{ login_form.as_p }}
-	<button type="submit">Login</button>
+	<input type="submit" value="Login" />
 </form>
 
 {% endif %}
+</div>
 
 {% endblock %}
