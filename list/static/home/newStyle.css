@@ -344,6 +344,7 @@ li.list-item p {
 	border-radius: 5%;
 	z-index: 110;
 	position: relative;
+	padding: 0;
 }
 
 /* List Item Dropdown Visibility */
