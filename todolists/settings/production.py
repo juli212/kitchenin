@@ -4,7 +4,10 @@ from urllib import parse
 import psycopg2
 
 
-SECERT_KEY = os.environ.get('SECRET_KEY')
+DEBUG = False
+
+
+SECERT_KEY = config('SECRET_KEY')
 
 
 parse.uses_netloc.append("postgres")
@@ -18,9 +21,6 @@ conn = psycopg2.connect(
   host=url.hostname,
   port=url.port
 )
-
-
-DEBUG = False
 
 
 ALLOWED_HOSTS = ['kitchenin.herokuapp.com','127.0.0.1']
