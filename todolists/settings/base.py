@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALLOWED_HOSTS = ['*', ]
 
 
-SECRET_KEY = SECRET_KEY
+SECRET_KEY = ''
 
 
 PREREQ_APPS = [
