@@ -4,7 +4,7 @@ from urllib import parse
 import psycopg2
 
 
-SECERT_KEY: os.environ.get('SECRET_KEY')
+SECERT_KEY = os.environ.get('SECRET_KEY')
 
 
 parse.uses_netloc.append("postgres")
