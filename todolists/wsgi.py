@@ -11,12 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-from whitenoise.django import DjangoWhiteNoise
-
-
-SECRET_KEY = os.environ.get('SECRET_KEY')
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "todolists.settings.production")
 
 application = get_wsgi_application()
-application = DjangoWhiteNoise(application)
