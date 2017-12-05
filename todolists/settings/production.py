@@ -24,7 +24,7 @@ conn = psycopg2.connect(
 )
 
 
-ALLOWED_HOSTS = ['kitchenin.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['kitchenin.herokuapp.com','127.0.0.1', ]
 
 
 DATABASES = {
