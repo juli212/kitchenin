@@ -1,7 +1,3 @@
-import os
-
-SECERT_KEY = os.environ.get('SECRET_KEY')
-
 from .base import *
 
 from urllib import parse
@@ -9,6 +5,9 @@ import psycopg2
 
 
 DEBUG = False
+
+
+SECERT_KEY = os.environ.get('SECRET_KEY')
 
 
 parse.uses_netloc.append("postgres")
