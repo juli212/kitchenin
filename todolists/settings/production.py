@@ -7,7 +7,7 @@ import psycopg2
 DEBUG = False
 
 
-SECERT_KEY = config('SECRET_KEY')
+SECERT_KEY = os.environ.get('SECRET_KEY')
 
 
 parse.uses_netloc.append("postgres")
