@@ -41,6 +41,7 @@ DATABASES = {
 
 MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware', ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 import dj_database_url
 DATABASES['default'] = dj_database_url.config()
