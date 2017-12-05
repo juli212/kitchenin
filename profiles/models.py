@@ -4,12 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 from django.core.exceptions import ValidationError
-
-# from django.utils.deconstruct import deconstructible
-# from django.utils.translation import ugettext_lazy as _
-# from django.core.validators import BaseValidator
 from datetime import date
-# import pdb
 
 
 def AgeValidator(value):
@@ -27,10 +22,12 @@ class Profile(models.Model):
 	def __unicode__(self):
 		return self.user.username
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
 	if created:
 		Profile.objects.create(user=instance)
+
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):

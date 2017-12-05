@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-import pdb
+
 
 class List(models.Model):
 	title = models.CharField(max_length=50)
