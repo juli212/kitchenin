@@ -7,7 +7,7 @@ from django.contrib.auth import logout as user_logout
 from django.contrib.auth.models import User
 from todolists.core.forms import UserRegistrationForm, UserLoginForm
 from list.models import List
-import pdb
+
 
 def index(request):
   kitchens = List.objects.filter(private=False, deleted=False)
@@ -16,6 +16,7 @@ def index(request):
   else:
     user = None
   return render(request, 'home/index.html', { 'user': user, 'kitchens': kitchens })
+
 
 def register(request):
   registration_form = UserRegistrationForm()
@@ -54,6 +55,7 @@ def login(request):
       return render(request, 'home/login.html', { 'login_form': form })
   else:
     return render(request, 'home/login.html', {'login_form': login_form })
+
 
 def logout(request):
   user_logout(request)
