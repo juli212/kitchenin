@@ -1,7 +1,9 @@
+import psycopg2
+
 from decouple import config
-from dj_database_url import parse
 
 from .base import *
+from urllib import parse
 
 
 DEBUG = False
