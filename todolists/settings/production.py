@@ -1,13 +1,12 @@
-from .base import *
+from decouple import config
+from dj_database_url import parse as db_url
 
-from urllib import parse
-import psycopg2
+from .base import *
 
 
 DEBUG = False
 
-
-SECERT_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = config('SECRET_KEY')
 
 
 parse.uses_netloc.append("postgres")
