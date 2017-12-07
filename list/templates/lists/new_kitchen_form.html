@@ -1,0 +1,8 @@
+{% load static %}
+
+<form action="{% url 'lists:index' %}" method="post" class="new-kitchen-form display-none user-form">
+	{% csrf_token %}
+	{{ kitchen_form.as_p }}
+	<input type="submit" value="create" />
+	<a href="#" class="cancel-link">cancel</a>
+</form>

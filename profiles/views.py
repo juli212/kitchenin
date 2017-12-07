@@ -7,7 +7,6 @@ from django.contrib.auth import update_session_auth_hash, authenticate
 from todolists.core.forms import UserUpdateEmailForm, UserUpdatePasswordForm, UserUpdateBioForm, UserUpdateNameForm, NewKitchenForm
 from .models import Profile
 from list.models import List
-import pdb
 
 
 @login_required(redirect_field_name=None, login_url='/')

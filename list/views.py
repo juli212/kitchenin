@@ -7,12 +7,24 @@ from django.contrib.auth.decorators import login_required
 from .models import List
 from items.models import Item, Change
 from django.contrib.auth.models import User
-from todolists.core.forms import KitchenEditForm, ItemForm
-import pdb
+from todolists.core.forms import NewKitchenForm, KitchenEditForm, ItemForm
 
 
 def index(request):
-	return HttpResponseRedirect(reverse('home:index'))
+	user = request.user
+	if user.is_authenticated() and request.method == "POST":
+		form = NewKitchenForm(request.POST)
+		if form.is_valid():
+			data = form.cleaned_data
+			kitchen = List(**data)
+			kitchen.creator = user
+			kitchen.save()
+			kitchen.members.add(user)
+			return HttpResponseRedirect(reverse('lists:detail', args=(kitchen.id)))
+		else:
+			return HttpResponseRedirect(reverse('profiles:detail', args=(user.profile.id,)))
+	else:
+		return HttpResponseRedirect(reverse('home:index'))
 
 
 @login_required(redirect_field_name=None, login_url='/')
@@ -35,15 +47,6 @@ def detail(request, list_id):
 			return HttpResponseRedirect(reverse('profiles:detail', args=(user.profile.id,)))
 	else:
 		return HttpResponseRedirect(reverse('profiles:detail', args=(user.profile.id,)))
-
-
-@login_required(redirect_field_name=None, login_url='/')
-def create(request):
-	user = request.user
-	kitchen = List(title=request.POST['title'], description=request.POST['description'], creator=user)
-	kitchen.save()
-	kitchen.members.add(user)
-	return HttpResponseRedirect(reverse('lists:detail', args=(kitchen.id,)))
 
 
 @login_required(redirect_field_name=None, login_url='/')

@@ -43,4 +43,9 @@
 		</ul>
 	{% endif %}
 	</div>
+
+{% if kitchen_form %}
+	{% include "lists/new_kitchen_form.html" with kitchen_form=kitchen_form %}
+{% endif %}
+
 {% endblock %}
