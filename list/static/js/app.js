@@ -31,18 +31,20 @@ $(document).ready(function(){
 			$('.visible-options').removeClass('visible-options')
 			$itemBox.removeClass('high-z')
 		} else {
-			var t = $item.offset().top + $item.height() - 7
-			var l = $item.offset().left + ($item.width()/2 - $dropdown.width()/2)
-			var fh = $('.list-forms').height()
-			// make sure dropdown is not cut off by bottom/side of page!
-			if ($(window).height() - t < fh) {
-				t -= ( fh + $item.height() )
-				t += 10
+			var wHeight = $(window).height()
+			var distScrolled = $(window).scrollTop()
+			var wBottom = wHeight + distScrolled
+			var formsBottom = $item.offset().top + $item.height() + $('.list-forms').height()
+
+			// make sure dropdown is not cut off by bottom of page
+			if (wBottom < formsBottom) {
+				$dropdown.css('top', 'auto')
+				$dropdown.css('bottom', '95%')
 			}
+
 			$('.visible-options').removeClass('visible-options')
 			$('.kitchen-list.high-z').removeClass('high-z')
 			$item.toggleClass('visible-options')
-			$dropdown.offset({top: t, left: l})
 			$itemBox.addClass('high-z')
 		}
 	})
@@ -188,7 +190,6 @@ $(document).ready(function(){
 			helper: 'clone',
 			start: function(){
 				var $li = $(this)
-				var $box = $('#drag-box')
 				$('.kitchen-list.high-z').removeClass('high-z')
 				$('.visible-options').removeClass('visible-options')
 				$li.data("origPosition", $li.position())
@@ -196,7 +197,6 @@ $(document).ready(function(){
 				$li.css('opacity', '0.4')
 			},
 			drag: function(){
-				// debugger;
 				var $list = $(this).closest('.kitchen-list')
 				$($list[0]).droppable({disabled: true})
 			},
