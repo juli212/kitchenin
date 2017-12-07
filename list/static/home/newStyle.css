@@ -220,7 +220,6 @@ ul.header-bar-menu li:hover a img {
 
 .public-list ul li {
 	display: inline-block;
-	/*border: 1px solid white;*/
 	margin: 5px;
 	background-color: rgba(244,239,181, 0.4);
 }
@@ -243,7 +242,7 @@ ul.header-bar-menu li:hover a img {
 .kitchen-lists {
 	width: 100%;
 	height: 100%;
-	overflow: auto;
+	overflow: visible;
 	margin: 0;
 	position: relative;
 }
@@ -257,7 +256,7 @@ ul.header-bar-menu li:hover a img {
 	float: left;
 	position: relative;
 	z-index: 3;
-	overflow: auto;
+	overflow: visible;
 	background-color: #D3D3D3;
 }
 
@@ -347,24 +346,26 @@ li.list-item p {
 	padding: 0;
 }
 
-/* List Item Dropdown Visibility */
+/****** List Item Dropdown Visibility ******/
 .kitchen-lists ul li.list-item.visible-options {
 	z-index: 13;
-	background-color: rgb(72,91,128);
+	background-color: rgb(160,118,132);
 }
 
 .kitchen-lists ul li.list-item.visible-options .list-forms {
 	display: block;
-	position: fixed;
-	right: auto;
 }
 
 .list-forms {
 	position: absolute;
-	top: 3px;
-	right: -23px;
+	top: 95%;
+	width: 46px;
+	right: 0;
+	left: 0;
+	text-align: center;
+	margin: 0 auto;
 	display: none;
-	background-color: rgba(72, 91, 128, 0.8);
+	background-color: rgba(160,118,132, 0.8);
 	max-width: 90px;
 	z-index: 20;
 }
@@ -382,7 +383,7 @@ li.list-item p {
 	display: block;
 }
 
-/* Kitchen Detail Scrollbar */
+/****** Kitchen Detail Scrollbar ******/
 .kitchen-list::-webkit-scrollbar {
 	width: 6px;
 	background-color: grey;
@@ -397,7 +398,7 @@ li.list-item p {
 	background-color: rgb(71, 106, 82)
 }
 
-/* Item Detail Move Links */
+/****** Item Detail Move Links ******/
 .item-detail-move {
 	width: 100%;
 	position: absolute;
@@ -426,7 +427,7 @@ li.list-item p {
 }
 
 
-/*Item Detail Modal */
+/****** Item Detail Modal ******/
 .modal-notes {
 	border: 1px solid rgb(72,91,128);
 	width: 80%;
@@ -483,7 +484,7 @@ li.list-item p {
 	text-align: center;
 }
 
-/* Add Item Button/Form */
+/****** Add Item Button/Form ******/
 .top-block {
 	position: relative;
 	width: 100%;
@@ -761,7 +762,7 @@ form {
 	margin: 0 auto;
 	width: 100%;
 	max-width: 500px;
-	padding: 10px 0 20px;
+	padding: 10px 5% 20px;
 }
 
 form h4 {
@@ -775,17 +776,17 @@ form div, form p {
 }
 
 form input {
-	width: 90%;
-	height: 36px;
+	width: 100%;
+	height: 40px;
 	position: relative;
 	border: none;
 	border-radius: 3px;
 	font-size: 16px;
-	padding-top: 12px;
+	padding-top: 16px;
 }
 
 form select {
-	height: 36px;
+	height: 40px;
 	border-radius: 3px;
 	border: none;
 	margin: 0 5px;
@@ -794,8 +795,8 @@ form select {
 }
 
 form textarea {
-	width: 90%;
-	padding-top: 12px;
+	width:100%;
+	padding-top: 16px;
 }
 
 form input[type=checkbox]{
@@ -867,13 +868,28 @@ input[type=date]::-webkit-datetime-edit-text {
 
 /************/
 form.user-form input[type=submit] {
-	height: 36px;
+	height: 40px;
 }
 
 form.user-form textarea {
 	border-radius: 2px;
 	font-size: 14px;
 	border: none;
+}
+
+form.user-form p {
+	position: relative;
+	margin: 0 0 20px;
+}
+
+form.user-form label {
+	position: absolute;
+	left: 3px;
+	color: rgb(71, 106, 82);
+	font-size: 14px;
+	font-weight: bold;
+	z-index: 30;
+	top: 0;
 }
 
 /****** General Classes ******/
@@ -1035,16 +1051,22 @@ form.user-form textarea {
 /****** Errors ******/
 .errorlist>* {
 	color: rgb(160,118,132);
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: bold;
 	z-index: 50;
 }
 
+.errorlist {
+	position: relative;
+	height: 10px;
+}
+
 .errorlist li {
 	position: absolute;
-	top: 1px;
-	right: 0;
-	left: 0;
+	/*top: 1px;*/
+	bottom: 0;
+	right: 25px;
+	/*left: 0;*/
 }
 
 /****** Delete Kitchen Link ******/
@@ -1072,4 +1094,8 @@ form.user-form textarea {
 		right: auto;
 		left: 65%;
 	}
+}
+
+li.ui-draggable-dragging {
+	background-color: rgba(249, 179, 111, 0.9);
 }

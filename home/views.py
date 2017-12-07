@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as user_login
 from django.contrib.auth import logout as user_logout
 from django.contrib.auth.models import User
-from todolists.core.forms import UserRegistrationForm, UserLoginForm
+from todolists.core.forms import UserRegistrationForm, UserLoginForm, NewKitchenForm
 from list.models import List
 
 
@@ -13,9 +13,11 @@ def index(request):
   kitchens = List.objects.filter(private=False, deleted=False)
   if request.user.is_authenticated():
     user = request.user
+    newKitchenForm = NewKitchenForm()
   else:
     user = None
-  return render(request, 'home/index.html', { 'user': user, 'kitchens': kitchens })
+    newKitchenForm = None
+  return render(request, 'home/index.html', { 'user': user, 'kitchens': kitchens, 'kitchen_form': newKitchenForm })
 
 
 def register(request):

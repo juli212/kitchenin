@@ -11,7 +11,7 @@ def AgeValidator(value):
 	today = date.today()
 	age = today.year - value.year - ((today.month, today.day) < (value.month, value.day))
 	if age < 18:
-		raise ValidationError('Age must be at least 18.')
+		raise ValidationError('You must be at least 18 years old to register.')
 
 
 class Profile(models.Model):
