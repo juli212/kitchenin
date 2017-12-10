@@ -32,7 +32,6 @@ def detail(request, profile_id):
 		new_kitchen_form = NewKitchenForm()
 		return render(request, 'profiles/detail.html', {'profile': profile, 'kitchen_form': new_kitchen_form, })
 	else:
-		# kitchens = List.objects.filter(creator=user, deleted=False)
 		return render(request, 'profiles/detail.html', {'profile': profile, 'user': user, })
 
 
