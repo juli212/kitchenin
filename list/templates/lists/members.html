@@ -27,7 +27,7 @@
 <h6>Owner: {{ kitchen.creator }}</h6>
 <ul class="blocklist">
 	{% for member in kitchen.members.all %}
-		<li><a class="text" href="{% url 'profiles:detail' member.id %}">{{ member.username }}</a>
+		<li><a class="text" href="{% url 'profiles:detail' member.profile.id %}">{{ member.username }}</a>
 			<div class="icon-links">
 			{% if member == kitchen.creator %}
 				<span class="icon-box"><img class="icon" src="{% static 'viewUserGreen.png' %}" title="Owner" /></span>

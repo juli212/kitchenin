@@ -307,22 +307,13 @@ li.list-item {
 	margin: 5px 13px 5px 3px;
 	z-index: 10;
 	min-width: 50px;
-	max-width: 130px;
+	max-width: 100%;
 	width: min-content;
 	background-color: rgb(72,91,128);
 	border-radius: 1px;
-}
-
-li.list-item p {
-	padding: 5px;
-	position: relative;
-	display: inline-block;
 	color: white;
+	padding: 10px 8px;
 	font-weight: bold;
-	margin: 0;
-	vertical-align: middle;
-	overflow-x: hidden;
-	z-index: 10; 
 }
 
 .kitchen-list ul li.list-item form {

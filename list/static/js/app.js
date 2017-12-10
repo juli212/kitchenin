@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	dragDrop()
+	dragDrop();
 
 	$(window).on('scroll', function() {
 		$('.list-item').removeClass('visible-options');
@@ -23,8 +23,9 @@ $(document).ready(function(){
 		$(hash).addClass('selected');
 	})
 
-	$('.kitchen-lists').on('click', 'li.list-item p', function(){
-		var $item = $(this).closest('.list-item')
+	$('.kitchen-lists').on('click', 'li.list-item', function(e){
+		e.stopPropagation()
+		var $item = $(this)
 		var $dropdown = $item.find('.list-forms')
 		var $itemBox = $item.closest('.kitchen-list')
 		if ($item.hasClass('visible-options')){
@@ -41,7 +42,6 @@ $(document).ready(function(){
 				$dropdown.css('top', 'auto')
 				$dropdown.css('bottom', '95%')
 			}
-
 			$('.visible-options').removeClass('visible-options')
 			$('.kitchen-list.high-z').removeClass('high-z')
 			$item.toggleClass('visible-options')
@@ -69,7 +69,6 @@ $(document).ready(function(){
 			success: function(response){
 				$('.page-overlay').removeClass('display-none')
 				$modalBox.addClass('item-detail-modal').on('click', '.modal-close-x', function(e){
-					// event.preventDefault()
 					var modalClass = 'item-detail-modal'
 					var $modalBox = $(this).closest('.general-modal')
 					closeModal($modalBox, modalClass)
@@ -147,8 +146,7 @@ $(document).ready(function(){
 			formToggle(hideForm, showButton)
 		} else {
 			$modal = $('.general-modal')
-			$modal.attr('class', '.general-modal')
-			$modal.addClass('display-none')
+			$modal.attr('class', 'general-modal display-none')
 			$modal.find('.modal-main').html('')
 			$modal.find('h5').text('')
 			$('.page-overlay').addClass('display-none')
@@ -169,7 +167,7 @@ $(document).ready(function(){
 
 	$('body').on('click', function(e){
 		$target = $(e.target)
-		if (!$target.parent().hasClass('list-item')){
+		if (!$target.hasClass('list-item')){
 			$('.visible-options').removeClass('visible-options')
 			$('.kitchen-list.high-z').removeClass('high-z')
 		}
@@ -202,6 +200,8 @@ $(document).ready(function(){
 			},
 			stop: function(){
 				$(this).css('opacity', '1')
+				$('.kitchen-list').css('overflow', 'visible')
+				$('.kitchen-list').droppable("option", "disabled", false)
 			}
 		});
 		$('.kitchen-list').droppable({
@@ -219,14 +219,12 @@ $(document).ready(function(){
 						'item-status': $(formToSubmit[0]).find("input[name='item-status']").val()
 					},
 					error: function(){
-						console.log('fail');
 						ui.draggable.animate(ui.draggable.data().origPosition, "slow")
+						dragDrop()
 					},
 					success: function(response){
 						$(ui.draggable[0]).remove()
 						$(droppedAt).append(response)
-						$('.kitchen-list').droppable("option", "disabled", false)
-						$('.kitchen-list').css('overflow-y', 'auto')
 						dragDrop()
 					}
 				})
