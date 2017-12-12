@@ -47,7 +47,6 @@ Make sure that you have the Heroku remote configured.
 
 ## Further Reading
 
-- [Heroku Template](https://github.com/vintasoftware/django-react-boilerplate)
 - [Gunicorn](https://warehouse.python.org/project/gunicorn/)
 - [WhiteNoise](https://warehouse.python.org/project/whitenoise/)
 - [dj-database-url](https://warehouse.python.org/project/dj-database-url/)
