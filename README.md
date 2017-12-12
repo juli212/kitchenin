@@ -4,6 +4,15 @@ Keep your kitchen well-stocked and organized. Kitchenin' helps coordinate your n
 
 I built Kitchenin' primarily to teach myself Django. The idea itself was inspired by numerous daily text-messages and emails asking repeatedly if I needed anything from the store. While I admire and appreciate the sentiment, I knew there was a better way than enduring seemingly endless and inefficient messages.
 
+View on Heroku: [Kitchenin'](http://kitchenin.herokuapp.com/)
+Feel free to create an account or use one of our test users to explore the site:
+##### Test User One
+        username: testUser
+        password: testpassword
+##### Test User Two
+        username: testUser2
+        password: test2password
+
 # Getting started
 
 If you're using Mac OS X, Windows, or a common flavor of Linux these instructions should apply.
