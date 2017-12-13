@@ -33,7 +33,7 @@
 			<input type="submit" value="Update" />
 		</form>
 		<div class='delete-icon-link'>
-			<form class="icon-box .delete-kitchen" action="{% url 'lists:destroy' kitchen.id %}" method="post" title="Delete">
+			<form class="icon-box delete-kitchen" action="{% url 'lists:destroy' kitchen.id %}" method="post" title="Delete">
 				{% csrf_token %}
 				<input class="icon" type="image" src="{% static 'deleteBlue.png' %}" />
 			</form>
