@@ -10,9 +10,9 @@
 		<img src="{% static 'viewKitchenGreen.png' %}" />
 		<p>Kitchen</p>
 	</a>
-	<a href="{% url 'profiles:detail' user.profile.id %}" class="" title="Profile">
+	<a href="{% url 'lists:members' kitchen.id %}" class="" title="Members">
 		<img src="{% static 'viewUserGreen.png' %}" />
-		<p>Profile</p>
+		<p>Members</p>
 	</a>
 </div>
 <div class="top-block-right">
