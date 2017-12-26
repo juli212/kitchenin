@@ -11,9 +11,9 @@
 			<img src="{% static 'addItemGreen.png' %}" />
 			<p>Item</p>
 		</a>
-		<a href="{% url 'lists:members' kitchen.id %}" class='member-page-link open-form-link' title="View Members">
-			<img src="{% static 'viewUserGreen.png' %}" />
-			<p>Members</p>
+		<a href="{% url 'lists:edit' kitchen.id %}" class='member-page-link open-form-link' title="Edit">
+			<img src="{% static 'editKitchenGreen.png' %}" />
+			<p>Edit</p>
 		</a>
 	{% else %}
 		<a href="{% url 'profiles:detail' user.profile.id %}" >

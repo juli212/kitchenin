@@ -702,7 +702,7 @@ ul.edit-list li a {
 	display: block;
 	text-align: center;
 	margin: 0;
-	padding: 12px 10px;
+	padding: 16px 10px;
 	font-weight: normal;
 	width: 100%;
 	height: 100%;
@@ -787,14 +787,16 @@ form select {
 
 form textarea {
 	width:100%;
-	padding-top: 16px;
+	padding-top: 20px;
 }
 
 form input[type=checkbox]{
-	display: inline;
-	height: 20px;
-	width: 20px;
-	padding: 0;
+	display: block;
+	height: 22px;
+	width: 22px;
+	margin: 0;
+	margin-left: 215px;
+	vertical-align: top;
 }
 
 form input[type=submit] {
@@ -944,11 +946,12 @@ form.user-form label {
 .general-modal .modal-close-x {
 	position: absolute;
 	border: 1px solid white;
-	height: 20px;
-	width: 20px;
-	right: 4px;
-	top: 4px;
+	height: 24px;
+	width: 24px;
+	right: 3px;
+	top: 2px;
 	font-weight: bold;
+	font-size: 19px;
 	background-color: rgb(71, 106, 82);
 	z-index: 110;
 }
@@ -1054,10 +1057,8 @@ form.user-form label {
 
 .errorlist li {
 	position: absolute;
-	/*top: 1px;*/
 	bottom: 0;
 	right: 25px;
-	/*left: 0;*/
 }
 
 /****** Delete Kitchen Link ******/
@@ -1067,7 +1068,7 @@ form.user-form label {
 	padding: 0;
 	display: inline-block;
 	position: absolute;
-	bottom: 41px;
+	bottom: 45px;
 	right: 20%;
 }
 
@@ -1089,4 +1090,9 @@ form.user-form label {
 
 li.ui-draggable-dragging {
 	background-color: rgba(249, 179, 111, 0.9);
+}
+
+/****** Checkbox label styling ******/
+form label[for=id_private] {
+	font-size: 19px;
 }

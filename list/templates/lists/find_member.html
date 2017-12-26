@@ -26,8 +26,10 @@
 
 	<form action="{% url 'lists:find_member' kitchen.id %}" method="post" class="user-form">
 		{% csrf_token %}
-		<label>search:</label>
-		<input type="text" name="user-search" placeholder="Enter Username" />
+		<p>
+			<label>search:</label>
+			<input type="text" name="user-search" placeholder="Enter Username" />
+		</p>
 		<input type="submit" value="search" />
 	</form>
 

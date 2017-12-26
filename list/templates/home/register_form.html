@@ -1,0 +1,8 @@
+{% load static %}
+
+<form action="{% url 'home:register' %}" method='post' class="user-form">
+<h3>Register</h3>
+	{% csrf_token %}
+	{{ registration_form.as_p }}
+	<input type="submit" value="Register" />
+</form>

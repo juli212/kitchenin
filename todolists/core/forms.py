@@ -13,7 +13,6 @@ from django.contrib.auth import authenticate
 
 
 d = date.today() - relativedelta(years=18)
-# basic = [help_text='', label_suffix='']
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -23,7 +22,6 @@ class UserRegistrationForm(UserCreationForm):
     required=True,
     label='First Name',
     label_suffix="",
-    # basic,
     widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
   last_name = forms.CharField(
     max_length=30,
