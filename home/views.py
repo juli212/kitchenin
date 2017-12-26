@@ -36,6 +36,9 @@ def register(request):
       return HttpResponseRedirect(reverse('profiles:detail', args=(user.profile.id,)))
     else:
       return render(request, 'home/register.html', {'registration_form': form })
+  elif request.is_agax():
+    register = render_to_string('home/register_form.html', {'register_form': registration_form}, request=request)
+    return JsonResponse(login, safe=False)
   else:
     return render(request, 'home/register.html', { 'registration_form': registration_form })
 
@@ -55,6 +58,9 @@ def login(request):
         return render(request, 'home/login.html', { 'login_form': form })
     else:
       return render(request, 'home/login.html', { 'login_form': form })
+  elif request.is_ajax():
+    login = render_to_string('home/login_form.html', {'login_form': login_form }, request=request)
+    return JsonResponse(login, safe=False)
   else:
     return render(request, 'home/login.html', {'login_form': login_form })
 
