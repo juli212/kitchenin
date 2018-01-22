@@ -36,7 +36,7 @@ def register(request):
       return HttpResponseRedirect(reverse('profiles:detail', args=(user.profile.id,)))
     else:
       return render(request, 'home/register.html', {'registration_form': form })
-  elif request.is_agax():
+  elif request.is_ajax():
     register = render_to_string('home/register_form.html', {'register_form': registration_form}, request=request)
     return JsonResponse(login, safe=False)
   else:
